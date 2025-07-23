@@ -8,16 +8,34 @@ from tools.expense_calculator_tool import CalculatorTool
 from tools.currency_conversion_tool import CurrencyConvertorTool
 
 class GraphBuilder():
-    def __init__(self):
+    def __init__(self,model_provider: str = "groq"):
+        self.model_loader = ModelLoader(model_provider=model_provider)
+        self.llm = self.model_loader.load_llm()
+        
         self.tools = []
-        self.system_prompt=SYSTEM_PROMPT
+        
+        self.weather_tools = WeatherInfoTool()
+        self.place_search_tools = PlaceSearchTool()
+        self.calculator_tools = CalculatorTool()
+        self.currency_converter_tools = CurrencyConverterTool()
+        
+        self.tools.extend([* self.weather_tools.weather_tool_list, 
+                           * self.place_search_tools.place_search_tool_list,
+                           * self.calculator_tools.calculator_tool_list,
+                           * self.currency_converter_tools.currency_converter_tool_list])
+        
+        self.llm_with_tools = self.llm.bind_tools(tools=self.tools)
+        
+        self.graph = None
+        
+        self.system_prompt = SYSTEM_PROMPT
     def agent_function(self,state: MessagesState):
         """Main Agent Function"""
         user_question = state["messages"]
         input_question = [self.system_prompt]+ user_question
         response = self.llm_with_tools.invoke(input_question)
         return {"messages":[response]}
- 
+
     def build_graph(self):
         graph_builder = StateGraph(MessagesState)
         graph_builder.add_node("tools",ToolNode(tools=self.tools))
@@ -28,4 +46,4 @@ class GraphBuilder():
         self.graph=graph_builder.compile()
         return self.graph
     def __call__(self):
-        pass
+        return self.build_graph()
