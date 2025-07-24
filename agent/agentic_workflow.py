@@ -17,7 +17,7 @@ class GraphBuilder():
         self.weather_tools = WeatherInfoTool()
         self.place_search_tools = PlaceSearchTool()
         self.calculator_tools = CalculatorTool()
-        self.currency_converter_tools = CurrencyConverterTool()
+        self.currency_converter_tools = CurrencyConvertorTool()
         
         self.tools.extend([* self.weather_tools.weather_tool_list, 
                            * self.place_search_tools.place_search_tool_list,
@@ -38,6 +38,7 @@ class GraphBuilder():
 
     def build_graph(self):
         graph_builder = StateGraph(MessagesState)
+        graph_builder.add_node("agent",self.agent_function)
         graph_builder.add_node("tools",ToolNode(tools=self.tools))
         graph_builder.add_edge(START,"agent")
         graph_builder.add_conditional_edges("agent",tools_condition)
