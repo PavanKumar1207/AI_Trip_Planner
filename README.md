@@ -1,6 +1,18 @@
-# 🌍 AI Trip Planner  
+<h1 align="center">🌍 AI Trip Planner</h1>
+<p align="center">
+  <i>Your intelligent travel companion — plan smarter, travel better.</i><br>
+</p>
 
-### 🚀 Gen AI-driven Itinerary Planner using Python, FastAPI & AWS  
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.11+-blue?style=flat-square&logo=python">
+  <img src="https://img.shields.io/badge/FastAPI-Framework-green?style=flat-square&logo=fastapi">
+  <img src="https://img.shields.io/badge/AWS-Cloud-orange?style=flat-square&logo=amazonaws">
+  <img src="https://img.shields.io/badge/OAuth-2.0-blueviolet?style=flat-square&logo=auth0">
+  <img src="https://img.shields.io/badge/NLP-GenAI-yellow?style=flat-square&logo=openai">
+  <img src="https://img.shields.io/badge/License-MIT-yellow?style=flat-square">
+</p>
+
+  
 
 ---
 
@@ -138,3 +150,4 @@ If you’d like to add new features or fix bugs:
 This project is licensed under the **MIT License** – see the [LICENSE](LICENSE) file for details.  
 
 ---
+
